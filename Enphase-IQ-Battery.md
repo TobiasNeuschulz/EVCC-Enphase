@@ -85,6 +85,9 @@ wird ersetzt durch
 ```
 
 In der "Enlighten" App kann der Live Status immer nur für 15 Minuten aktiviert werden. Anschließend sieht EVCC mit dieser Konfiguration keine aktuellen Werte mehr.
+
+![Enlighten Live Status](images/Enlighten-Live-Status-small.png)
+
 Wie kann das verhindert werden?
 Mittels Cron-Daemon wird zeitbasierten die Ausführung eines Befehls als wiederkehrende Aufgabe automatisiert, welche den Live Status alle 14 Minuten aktiviert.
 
