@@ -45,6 +45,8 @@ Nachteile:
 - offiziell nur für Enphase "AC Battery" ("AC" ist hierbei ein Produkttyp) und diese Konfiguration unterstützt nur teilweise die neueren Enphase Batterien des Typs "IQ Battery"
 - Innerhalb von EVCC wird eine IQ Battery zwar mit dem aktuellen Ladestand (SoC) angezeigt, jedoch bleiben die Lade- bzw. Entladeströme in (W) bei 0.
 
+![EVCC no charging information](images/EVCC-EnphaseIQBattery-NoChargeInfo-small.png)
+
 ## Option 2) Nutzung EVCC Custom-Template für die Enphase IQ Battery
 
 Der in der Standard Konfiguration erzeugte Block für eine Enphase Batterie
@@ -110,4 +112,5 @@ Der curl Befehl kann zunächst auch einfach mittels SSH auf dem Linux System get
 "sc_stream": "enabled"
 ```
 
-That's it! EVCC sollte jetzt alle Werte (SoC und Lade- bzw. Entladeströme) korrekt anzeigen.
+That's it! EVCC sollte jetzt alle Werte (SoC und Lade- bzw. Entladeströme) korrekt anzeigen:
+![EVCC with Enphase IQ Battery information](images/EVCC-EnphaseIQBattery-ChargeInfo-small.png)
