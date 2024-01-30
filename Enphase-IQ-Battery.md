@@ -64,7 +64,7 @@ wird ersetzt durch
   type: custom
   power:
     source: http
-    uri: http://<Enter Enphase IQ Gateway IP here>/ivp/livedata/status
+    uri: https://<Enter Enphase IQ Gateway IP here>/ivp/livedata/status
     method: GET
     auth:
       type: bearer
@@ -74,7 +74,7 @@ wird ersetzt durch
     scale: 0.001
   soc:
     source: http
-    uri: http://<Enter Enphase IQ Gateway IP here>/ivp/livedata/status
+    uri: https://<Enter Enphase IQ Gateway IP here>/ivp/livedata/status
     method: GET
     auth:
       type: bearer
