@@ -120,6 +120,12 @@ That's it! EVCC sollte jetzt alle Werte (SoC und Lade- bzw. Entladeströme) korr
 Das folgende Skript kann per crontab ausgeführt werden und prüft, ob der LiveStatus aktiviert ist. Ferner wird geprüft, ob ein Auto am Ladepunkt angeschlossen ist.
 Nur wenn beide Bedingungen erfüllt sind, wird der Enphase Live Status aktiviert. (Danke an JAK0721 für die Vorlage!)
 
+Damit das Skript funktioniert muss jq installiert sein:
+```
+sudo apt update
+sudo apt install -y jq
+```
+
 livestatus.sh
 ```bash
 #!/bin/bash
