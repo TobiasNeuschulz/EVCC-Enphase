@@ -114,3 +114,36 @@ Der curl Befehl kann zunächst auch einfach mittels SSH auf dem Linux System get
 
 That's it! EVCC sollte jetzt alle Werte (SoC und Lade- bzw. Entladeströme) korrekt anzeigen:
 ![EVCC with Enphase IQ Battery information](images/EVCC-EnphaseIQBattery-ChargeInfo-small.png)
+
+
+### Erweiterung crontab per Bash Script
+Das folgende Skript kann per crontab ausgeführt werden und prüft, ob der LiveStatus aktiviert ist. Ferner wird geprüft, ob ein Auto am Ladepunkt angeschlossen ist.
+Nur wenn beide Bedingungen erfüllt sind, wird der Enphase Live Status aktiviert. (Danke an JAK0721 für die Vorlage!)
+
+livestatus.sh
+```bash
+#!/bin/bash
+s1="disabled"
+sleep 3
+s2=$(curl -f -k -H "Accept: application/json" -H "Authorization: Bearer ey..." -X GET https://192.168.x.x/ivp/livedata/status | jq -r .connection.sc_stream)
+
+
+# EVCC Status Loadpoint Connected True / False
+s3=$(curl -f -k -H "Accept: application/json" -X GET http://evcc:7070/api/state | jq -r .result.loadpoints[].connected)
+s4="true"
+
+echo "EVCC Loadpoint Status Connected:"
+echo $s3
+echo "-----"
+echo "Status Enphase Live-Status:"
+echo $s2
+echo "-----"
+
+if [ $s1 == $s2 ] && [ $s4 == $s3 ]
+then
+  curl -f -k -H "Authorization:bearer ey..." -H "Content-Type:application/json" -d "{\"enable\":1}" https://192.168.x.x/ivp/livedata/stream
+  echo "Enphase Live-Status activated."
+else
+  echo "Enphase Live-Status was already activated or no car connected to Loadpoint."
+fi
+```
