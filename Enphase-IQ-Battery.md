@@ -1,8 +1,8 @@
-# Anbindung einer Enphase-IQ-Battery an EVCC
+# Anbindung einer Enphase-IQ-Battery an evcc
 
-## Option 1) Nutzung EVCC Standard Template
+## Option 1) Nutzung evcc Standard Template
 
-Die EVCC.yaml sieht wie folgt aus:
+Die evcc.yaml sieht wie folgt aus:
 
 ```yml
 meters:
@@ -28,7 +28,7 @@ meters:
 [...]
 
 site:
-  title: EVCC-Example-Site
+  title: evcc-Example-Site
   meters:
     grid: grid1
     pv:
@@ -43,11 +43,11 @@ Vorteile:
 
 Nachteile:
 - offiziell nur für Enphase "AC Battery" ("AC" ist hierbei ein Produkttyp) und diese Konfiguration unterstützt nur teilweise die neueren Enphase Batterien des Typs "IQ Battery"
-- Innerhalb von EVCC wird eine IQ Battery zwar mit dem aktuellen Ladestand (SoC) angezeigt, jedoch bleiben die Lade- bzw. Entladeströme in (W) bei 0.
+- Innerhalb von evcc wird eine IQ Battery zwar mit dem aktuellen Ladestand (SoC) angezeigt, jedoch bleiben die Lade- bzw. Entladeströme in (W) bei 0.
 
 ![EVCC no charging information](images/EVCC-EnphaseIQBattery-NoChargeInfo-small.png)
 
-## Option 2) Nutzung EVCC Custom-Template für die Enphase IQ Battery
+## Option 2) Nutzung evcc Custom-Template für die Enphase IQ Battery
 
 Der in der Standard Konfiguration erzeugte Block für eine Enphase Batterie
 ```yml
@@ -86,7 +86,7 @@ wird ersetzt durch
   capacity: 3.5 # kWh
 ```
 
-In der "Enlighten" App kann der Live Status immer nur für 15 Minuten aktiviert werden. Anschließend sieht EVCC mit dieser Konfiguration keine aktuellen Werte mehr.
+In der "Enlighten" App kann der Live Status immer nur für 15 Minuten aktiviert werden. Anschließend sieht evcc mit dieser Konfiguration keine aktuellen Werte mehr.
 
 ![Enlighten Live Status](images/Enlighten-Live-Status-small.png)
 
@@ -112,7 +112,7 @@ Der curl Befehl kann zunächst auch einfach mittels SSH auf dem Linux System get
 "sc_stream": "enabled"
 ```
 
-That's it! EVCC sollte jetzt alle Werte (SoC und Lade- bzw. Entladeströme) korrekt anzeigen:
+That's it! evcc sollte jetzt alle Werte (SoC und Lade- bzw. Entladeströme) korrekt anzeigen:
 ![EVCC with Enphase IQ Battery information](images/EVCC-EnphaseIQBattery-ChargeInfo-small.png)
 
 
@@ -134,11 +134,11 @@ sleep 3
 s2=$(curl -f -k -H "Accept: application/json" -H "Authorization: Bearer ey..." -X GET https://192.168.x.x/ivp/livedata/status | jq -r .connection.sc_stream)
 
 
-# EVCC Status Loadpoint Connected True / False
+# evcc Status Loadpoint Connected True / False
 s3=$(curl -f -k -H "Accept: application/json" -X GET http://evcc:7070/api/state | jq -r .result.loadpoints[].connected)
 s4="true"
 
-echo "EVCC Loadpoint Status Connected:"
+echo "evcc Loadpoint Status Connected:"
 echo $s3
 echo "-----"
 echo "Status Enphase Live-Status:"
