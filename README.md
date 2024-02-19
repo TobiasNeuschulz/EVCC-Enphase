@@ -1,2 +1,2 @@
-# EVCC-Enphase
-Documentation for EVCC and Enphase solar system
+# evcc-Enphase
+Documentation for evcc and Enphase solar system
