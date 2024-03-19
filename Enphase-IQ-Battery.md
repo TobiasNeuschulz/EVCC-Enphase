@@ -1,5 +1,8 @@
 # Anbindung einer Enphase-IQ-Battery an evcc
 
+Hintergrund-Information:
+Enphase hat die lokale API geändert und liefert die Lade- und Entladeströme nur noch im Live-Status. Dieser wird aber vom Enphase IQ Gateway nach 15min deaktiviert. Dieser Guide zeigt die Optionen und einen technischen Workaround.
+
 ## Option 1) Nutzung evcc Standard Template
 
 Die evcc.yaml sieht wie folgt aus:
