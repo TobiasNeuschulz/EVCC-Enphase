@@ -132,13 +132,15 @@ sudo apt install -y jq
 livestatus.sh
 ```bash
 #!/bin/bash
+# Enphase Live Status Enabled / Disabled
 s1="disabled"
 sleep 3
 s2=$(curl -f -k -H "Accept: application/json" -H "Authorization: Bearer ey..." -X GET https://192.168.x.x/ivp/livedata/status | jq -r .connection.sc_stream)
 
-
 # evcc Status Loadpoint Connected True / False
 s3=$(curl -f -k -H "Accept: application/json" -X GET http://evcc:7070/api/state | jq -r .result.loadpoints[].connected)
+# Use this Query if you have more than one Loadpoint. Otherwise this Bash-Script is not working.
+# s3=$(curl -f -k -H "Accept: application/json" -X GET http://evcc:7070/api/state | jq -r '.result.loadpoints[] | select(.title == "<your Loadpoint title>") | .connected')
 s4="true"
 
 echo "evcc Loadpoint Status Connected:"
@@ -149,6 +151,8 @@ echo $s2
 echo "-----"
 
 if [ $s1 == $s2 ] && [ $s4 == $s3 ]
+# You can define $s5 for a second Loadpoint and use this if-and-or // not tested
+# if [ $s1 == $s2 ] && ([ $s4 == $s3 ] || [ $s5 == $s3 ])
 then
   curl -f -k -H "Authorization:bearer ey..." -H "Content-Type:application/json" -d "{\"enable\":1}" https://192.168.x.x/ivp/livedata/stream
   echo "Enphase Live-Status activated."
