@@ -82,7 +82,7 @@ wird ersetzt durch
     # uri: https://<Enter Enphase IQ Gateway IP here>/ivp/livedata/status
     # With "/ivp/ensemble/inventory" the soc is always up to date and indepentend from enphase Live Status.
     uri: https://<Enter Enphase IQ Gateway IP here>/ivp/ensemble/inventory
-method: GET
+    method: GET
     auth:
       type: bearer
       password: <Enter Enphase Token here>
