@@ -79,13 +79,16 @@ wird ersetzt durch
     scale: 0.001
   soc:
     source: http
-    uri: https://<Enter Enphase IQ Gateway IP here>/ivp/livedata/status
-    method: GET
+    # uri: https://<Enter Enphase IQ Gateway IP here>/ivp/livedata/status
+    # With "/ivp/ensemble/inventory" the soc is always up to date and indepentend from enphase Live Status.
+    uri: https://<Enter Enphase IQ Gateway IP here>/ivp/ensemble/inventory
+method: GET
     auth:
       type: bearer
       password: <Enter Enphase Token here>
     insecure: true
-    jq: .meters.soc
+    # jq: .meters.soc
+    jq: .[].devices | map(.percentFull) | add / length
   capacity: 3.5 # kWh
 ```
 
