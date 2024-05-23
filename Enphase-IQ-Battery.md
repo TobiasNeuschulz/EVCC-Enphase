@@ -100,7 +100,7 @@ Wie kann das verhindert werden?
 Mittels Cron-Daemon wird zeitbasierten die Ausführung eines Befehls als wiederkehrende Aufgabe automatisiert, welche den Live Status alle 14 Minuten aktiviert.
 
 ```
-sudo crontab -e
+crontab -e
 ```
 
 ```
