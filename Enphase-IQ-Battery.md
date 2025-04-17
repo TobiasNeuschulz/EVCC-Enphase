@@ -73,7 +73,7 @@ wird ersetzt durch
     method: GET
     auth:
       type: bearer
-      password: <Enter Enphase Token here>
+      token: <Enter Enphase Token here> # 'password' before evcc 0.203.0
     insecure: true
     jq: .meters.storage.agg_p_mw
     scale: 0.001
@@ -85,7 +85,7 @@ wird ersetzt durch
     method: GET
     auth:
       type: bearer
-      password: <Enter Enphase Token here>
+      token: <Enter Enphase Token here> # 'password' before evcc 0.203.0
     insecure: true
     # jq: .meters.soc
     jq: .[].devices | map(.percentFull) | add / length
