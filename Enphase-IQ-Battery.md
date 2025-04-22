@@ -50,7 +50,53 @@ Nachteile:
 
 ![EVCC no charging information](images/EVCC-EnphaseIQBattery-NoChargeInfo-small.png)
 
-## Option 2) Nutzung evcc Custom-Template für die Enphase IQ Battery
+## Option 2) Nutzung evcc Custom-Template für die Enphase IQ Battery (Update: 22.04.2025)
+
+Der in der Standard Konfiguration erzeugte Block für eine Enphase Batterie
+```yml
+- type: template
+  template: enphase
+  usage: battery
+  host: <Enter Enphase IQ Gateway IP here>
+  token: <Enter Enphase Token here>
+  name: battery3
+```
+
+wird ersetzt durch
+
+```yml
+- name: battery3
+  type: custom
+  power:
+    source: http
+    uri: https://<Enter Enphase IQ Gateway IP here>/ivp/ensemble/power
+    method: GET
+    auth:
+      type: bearer
+      token: <Enter Enphase Token here> # 'password: <Token>' before evcc 0.203.0
+    insecure: true
+    jq: |
+        [ .[][] | .real_power_mw ] | add
+    scale: 0.001
+  soc:
+    source: http
+    # uri: https://<Enter Enphase IQ Gateway IP here>/ivp/livedata/status
+    # With "/ivp/ensemble/inventory" the soc is always up to date and independent from Enphase Live Status.
+    uri: https://<Enter Enphase IQ Gateway IP here>/ivp/ensemble/inventory
+    method: GET
+    auth:
+      type: bearer
+      token: <Enter Enphase Token here> # 'password: <Token>' before evcc 0.203.0
+    insecure: true
+    # jq: .meters.soc
+    jq: .[].devices | map(.percentFull) | add / length
+  capacity: 3.5 # kWh
+```
+
+## Option 3) Nutzung evcc Custom-Template für die Enphase IQ Battery inkl. Skript für Live-Status
+
+Die vorherige "Option 2" verwendet für die Lade- und Entladeströme "/ivp/ensemble/power" und ist nicht mehr abhängig vom Live-Status der enphase App.
+Daher nutzt Option 2 bis das evcc enphase Template angepasst ist. Option 3 ist nur zur Vollständigkeit hier dokumentiert.
 
 Der in der Standard Konfiguration erzeugte Block für eine Enphase Batterie
 ```yml
