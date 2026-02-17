@@ -1,9 +1,12 @@
 # Anbindung einer Enphase-IQ-Battery an evcc
 
 Hintergrund-Information:
-Enphase hat die lokale API geändert und liefert die Lade- und Entladeströme nur noch im Live-Status. Dieser wird aber vom Enphase IQ Gateway nach 15min deaktiviert. Dieser Guide zeigt die Optionen und einen technischen Workaround.
+Enphase hat die lokale API geändert und lieferte die Lade- und Entladeströme nur noch im Live-Status. Dieser wird aber vom Enphase IQ Gateway nach 15min deaktiviert. Dieser Guide zeigt die Optionen und einen technischen Workaround.
 
-## Option 1) Nutzung evcc Standard Template
+## Option 1) Nutzung evcc Standard Config
+evcc hat die enphase Unterstützung verbessert. Mit Version 0.300.x sind die hier beschriebenen Workarounds nicht mehr notwendig. Ich lasse den Guide aus historischen Gründen bestehen.
+
+## Option 2) Nutzung evcc Standard Template
 
 Die evcc.yaml sieht wie folgt aus:
 
@@ -50,7 +53,7 @@ Nachteile:
 
 ![EVCC no charging information](images/EVCC-EnphaseIQBattery-NoChargeInfo-small.png)
 
-## Option 2) Nutzung evcc Custom-Template für die Enphase IQ Battery (Update: 22.04.2025)
+## Option 3) Nutzung evcc Custom-Template für die Enphase IQ Battery (Update: 22.04.2025)
 
 Der in der Standard Konfiguration erzeugte Block für eine Enphase Batterie
 ```yml
@@ -93,7 +96,7 @@ wird ersetzt durch
   capacity: 3.5 # kWh
 ```
 
-## Option 3) Nutzung evcc Custom-Template für die Enphase IQ Battery inkl. Skript für Live-Status
+## Option 4) Nutzung evcc Custom-Template für die Enphase IQ Battery inkl. Skript für Live-Status
 
 Die vorherige "Option 2" verwendet für die Lade- und Entladeströme "/ivp/ensemble/power" und ist nicht mehr abhängig vom Live-Status der enphase App.
 Daher nutzt Option 2 bis das evcc enphase Template angepasst ist. Option 3 ist nur zur Vollständigkeit hier dokumentiert.
